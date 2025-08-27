@@ -1,9 +1,9 @@
 import os
 import pymongo
+from datetime import datetime
 
 
-
-class ConnectionWrapper:
+class MongoClient:
     
     def __init__(self):
         self.mongo_user = os.getenv("MONGODB_USER","IRGC_NEW")
@@ -14,8 +14,11 @@ class ConnectionWrapper:
 
         self.db = self.client[self.mongo_db]
 
-    def get_data(self, start_date):
+        self.start_date = datetime.strptime("1900-01-01 00:00:00", "%Y-%m-%d %H:%M:%S")
+
+    def get_data(self):
         collection = self.db[self.collection_name]
-        data = list(collection.find({"CreateDate" : {"$gt" : start_date}}).sort({'CreateDate' : 1}).limit(100))
+        data = list(collection.find({"CreateDate" : {"$gt" : self.start_date}}).sort({'CreateDate' : 1}).limit(100))
+        self.start_date = data[-1]['CreateDate']
         return data
 
