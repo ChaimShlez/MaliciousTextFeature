@@ -1,10 +1,11 @@
 import os
 import pymongo
-class connectionWrapper:
 
 
+
+class ConnectionWrapper:
+    
     def __init__(self):
-
         self.mongo_user = os.getenv("MONGODB_USER","IRGC_NEW")
         self.mongo_password = os.getenv("MONGODB_PASSWORD", "iran135")
         self.mongo_db = os.getenv("MONGODB_DATABASE","IranMalDB")
@@ -13,13 +14,8 @@ class connectionWrapper:
 
         self.db = self.client[self.mongo_db]
 
-    def get_data(self):
-
+    def get_data(self, start_date):
         collection = self.db[self.collection_name]
-        return(list(collection.find({}, {"_id": 0})))
+        data = list(collection.find({"CreateDate" : {"$gt" : start_date}}).sort({'CreateDate' : 1}).limit(100))
+        return data
 
-
-
-
-c=connectionWrapper()
-print(c.get_data())
