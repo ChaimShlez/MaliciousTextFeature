@@ -67,7 +67,10 @@ class DataProcessing:
         self.data['clean_text'] = self.data['clean_text'].apply(self.replace_to_lower)
         self.data['clean_text'] = self.data['clean_text'].apply(self.remove_stop_words)
         self.data['clean_text'] = self.data['clean_text'].apply(self.Lemmatizing_text)
+
         return self.data
+
+
 
 
 
@@ -80,4 +83,5 @@ df = pd.DataFrame({
 
 
 d=DataProcessing(df)
-print(d.processing_text())
+d.processing_text()
+print(d.data)
