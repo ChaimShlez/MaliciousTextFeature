@@ -1,0 +1,27 @@
+docker network create mongo-kafka-project
+
+
+docker run -d \
+  --name mongodb-project \
+  --network mongo-kafka-project \
+  -e MONGO_INITDB_ROOT_USERNAME=admin \
+  -e MONGO_INITDB_ROOT_PASSWORD=secretpassword \
+  -e MONGO_INITDB_DATABASE=mydb \
+  -p 27017:27017 \
+  mongo:7.0.23
+
+
+
+
+ docker run -d \
+  --name kafka-project \
+  --network mongo-kafka-project \
+  -p 9092:9092 \
+  -e KAFKA_CFG_PROCESS_ROLES=broker,controller \
+  -e KAFKA_CFG_NODE_ID=1 \
+  -e KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093 \
+  -e KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092 \
+  -e KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093 \
+  -e KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER \
+  -e ALLOW_PLAINTEXT_LISTENER=yes \
+  bitnami/kafka:3.5
