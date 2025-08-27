@@ -15,9 +15,9 @@ class KafkaProducerConfigurations:
         )
         return producer
     @staticmethod
-    def consumer_connect(topic):
+    def consumer_connect(topic_one,topic_two):
         consumer = KafkaConsumer(
-            topic,
+            topic_one,topic_two,
             bootstrap_servers='localhost:9095',
             auto_offset_reset='earliest',
             group_id="my_consumer_group",
