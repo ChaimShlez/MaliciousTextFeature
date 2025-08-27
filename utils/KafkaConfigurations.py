@@ -10,7 +10,7 @@ class KafkaProducerConfigurations:
     def producer_connect():
 
         producer = KafkaProducer(
-            bootstrap_servers=os.getenv("KAFKA_BROKER", "kafka_service:9092"),
+            bootstrap_servers=os.getenv("KAFKA_BROKER", "localhost:9095"),
             value_serializer=lambda v: json.dumps(v).encode('utf-8')
         )
         return producer
@@ -18,7 +18,7 @@ class KafkaProducerConfigurations:
     def consumer_connect(topic):
         consumer = KafkaConsumer(
             topic,
-            bootstrap_servers='localhost:9092',
+            bootstrap_servers='localhost:9095',
             auto_offset_reset='earliest',
             group_id="my_consumer_group",
             enable_auto_commit=True,
