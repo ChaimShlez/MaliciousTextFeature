@@ -1,24 +1,29 @@
-from connectionWrapper import ConnectionWrapper
-from datetime import datetime
+from connectionWrapper import MongoClient
+from producer import Producer
+from dataSplitter import DataSplitter
+import time
 
 class Main():
 
     def __init__(self):
-        self.mongo_client = ConnectionWrapper()
+        self.mongo_client = MongoClient()
+        self.kafka_producer = Producer() 
 
-
+    def get_100_doc(self):
+        return self.mongo_client.get_data()
+    
     def run(self):
-        start_date = datetime.strptime("1900-01-01 00:00:00", "%Y-%m-%d %H:%M:%S")
         while True:
             try: 
-                data = self.get_100_doc(start_date)
-                start_date = data[-1]['CreateDate']
+                data = self.get_100_doc()
+                data_splitted = DataSplitter.split_by_col(data)
+                self.kafka_producer.send_data(data_splitted)
+                time.sleep(60)
             except Exception as e:
                 print(str(e))
                 return {"Error" : str(e)}
 
-    def get_100_doc(self, start_date):
-        return self.mongo_client.get_data(start_date)
+   
     
 if __name__ == "__main__":
     main = Main()
