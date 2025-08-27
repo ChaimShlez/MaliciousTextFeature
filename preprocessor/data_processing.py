@@ -11,9 +11,13 @@ class DataProcessing:
     def __init__(self,data):
         self.data=data
         nltk.download('stopwords')
-        nltk.download('punkt')
+        nltk.download('punkt_tab')
+        nltk.download('wordnet')
+        nltk.download('omw-1.4')
         nltk.download('averaged_perceptron_tagger_eng')
         self.lemmatizer = WordNetLemmatizer()
+
+
 
 
     def remove_marks(self,text):
@@ -36,30 +40,9 @@ class DataProcessing:
 
     def Lemmatizing_text(self, text):
         tokens = word_tokenize(text)
+        lemmatized_words = [self.lemmatizer.lemmatize(word) for word in tokens]
 
-        tagged_tokens = pos_tag(tokens)
-
-        def get_wordnet_pos(tag):
-            if tag.startswith('J'):
-                return 'a'
-            elif tag.startswith('V'):
-                return 'v'
-            elif tag.startswith('N'):
-                return 'n'
-            elif tag.startswith('R'):
-                return 'r'
-            else:
-                return 'n'
-
-        lemmatized_sentence = []
-
-        for word, tag in tagged_tokens:
-            if word.lower() == 'are' or word.lower() in ['is', 'am']:
-                lemmatized_sentence.append(word)
-            else:
-                lemmatized_sentence.append(self.lemmatizer.lemmatize(word, get_wordnet_pos(tag)))
-
-        return ' '.join(lemmatized_sentence)
+        return ' '.join( lemmatized_words)
 
 
     def processing_text(self):
@@ -76,8 +59,7 @@ class DataProcessing:
 
 df = pd.DataFrame({
     "Text": [
-        "Hello!!! This is an example, of TEXT... that we ARE going to clean.",
-        "Another row: running, cars, better, amazing!!!"
+"        Leave 2021 - 05 - 03 grenade 2022 - 0…"
     ]
 })
 
