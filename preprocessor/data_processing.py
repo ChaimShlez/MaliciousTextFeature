@@ -17,9 +17,6 @@ class DataProcessing:
         nltk.download('averaged_perceptron_tagger_eng')
         self.lemmatizer = WordNetLemmatizer()
 
-
-
-
     def remove_marks(self,text):
 
         text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
