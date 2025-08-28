@@ -1,5 +1,3 @@
-import os
-
 from KafkaConfigurations import KafkaProducerConfigurations
 
 

@@ -37,7 +37,7 @@ class Main:
     def rename_col(self,consumer_record):
         consumer_record.rename(
             columns={
-                'TweetID': 'id', 
+                'TweetID': 'id',
                 'text': 'original_text',
                 'CreateDate': 'createdate',
                 'Antisemitic': 'antisemietic'
