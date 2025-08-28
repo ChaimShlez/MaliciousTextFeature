@@ -1,0 +1,32 @@
+import json
+import os
+
+from kafka import KafkaProducer, KafkaConsumer
+
+
+class KafkaProducerConfigurations:
+
+    @staticmethod
+    def producer_connect():
+
+        producer = KafkaProducer(
+            bootstrap_servers=os.getenv("KAFKA_BROKER", "localhost:9095"),
+            value_serializer=lambda v: json.dumps(v).encode('utf-8')
+        )
+        return producer
+    @staticmethod
+    def consumer_connect(topic_one,topic_two):
+        consumer = KafkaConsumer(
+            topic_one,topic_two,
+            bootstrap_servers='localhost:9095',
+            auto_offset_reset='earliest',
+            group_id="my_consumer_group",
+            enable_auto_commit=True,
+            value_deserializer=lambda v: json.loads(v.decode('utf-8'))
+        )
+        return consumer
+
+
+
+
+
