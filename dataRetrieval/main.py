@@ -1,14 +1,12 @@
 import uvicorn
 from fastapi import FastAPI
-
-
 import logging
 
-from dataRetrieval.fetcher import Fetcher
+from fetcher import Fetcher
 
 app=FastAPI()
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+# logging.basicConfig(level=logging.DEBUG)
+# logger = logging.getLogger(__name__)
 
 @app.get("/getDataAntisemitic")
 def display_data():
@@ -17,7 +15,7 @@ def display_data():
         return fetcher.get_data('antisemitic')
 
     except Exception as e:
-       return {"dont success", "error", e}
+       return {"don't success", "error", e}
 
 
 @app.get("/getDataNotAntisemitic")
@@ -28,9 +26,6 @@ def display_data():
 
     except Exception as e:
        return {"dont success", "error", e}
-
-
-
 
 
 if __name__=="__main__":

@@ -12,8 +12,8 @@ class InsertToData:
         self.db = self.client[self.mongo_db]
 
 
-    def insert_data(self,collection_name,data):
-          self.db[collection_name].insert_one(data)
+    def insert_data(self, collection_name, data):
+        self.db[collection_name].insert_many(data)
 
 
 
