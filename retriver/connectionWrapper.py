@@ -18,7 +18,7 @@ class MongoClient:
 
     def get_data(self):
         collection = self.db[self.collection_name]
-        data = list(collection.find({"CreateDate" : {"$gt" : self.start_date}}).sort({'CreateDate' : 1}).limit(100))
+        data = list(collection.find({"CreateDate" : {"$gt" : self.start_date}},{'_id':0}).sort({'CreateDate' : 1}).limit(100))
         self.start_date = data[-1]['CreateDate']
         return data
 

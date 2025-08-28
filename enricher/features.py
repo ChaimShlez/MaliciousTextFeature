@@ -38,9 +38,7 @@ class Features:
 
         dates = []
         for match in matches:
-
           dates.append(datetime.strptime(match, '%Y-%m-%d').date())
-
         return max(dates)
 
 

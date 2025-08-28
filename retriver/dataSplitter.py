@@ -9,7 +9,7 @@ class DataSplitter:
             "not_antisemitic": []
         }
         for record in data:
-            record['_id'] = str(record['_id'])
+            # record['_id'] = str(record['_id'])
             record['CreateDate'] = str(record['CreateDate'])
             if record['Antisemitic'] == 1:
                 dict_split_antisemitic["antisemitic"].append(record) 

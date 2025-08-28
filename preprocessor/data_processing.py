@@ -52,7 +52,7 @@ class DataProcessing:
             self.data['clean_text'] = self.data['clean_text'].apply(self.replace_to_lower)
             self.data['clean_text'] = self.data['clean_text'].apply(self.remove_stop_words)
             self.data['clean_text'] = self.data['clean_text'].apply(self.Lemmatizing_text)
-            return pd.DataFrame.to_dict(self.data)
+            return self.data.to_dict(orient='records')
         except Exception as e:
             print("Error2", str(e))
 
@@ -60,14 +60,3 @@ class DataProcessing:
 
 
 
-
-df = pd.DataFrame({
-    "Text": [
-"        Leave 2021 - 05 - 03 grenade 2022 - 0…"
-    ]
-})
-
-
-d=DataProcessing(df)
-d.processing_text()
-print(d.data)
