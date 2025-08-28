@@ -2,9 +2,9 @@ from kafka_con import KafkaCon
 from data_processing import DataProcessing
 from features import Features
 import time
-import pandas as pd
 
-class Main():
+
+class Main:
 
     def __init__(self):
         self.kafka_conn = KafkaCon()

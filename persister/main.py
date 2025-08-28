@@ -21,7 +21,7 @@ class Main:
                     topic=consumer_record.topic
                     consumer_record = consumer_record.value
                     print(consumer_record)
-                    consumer_record=pd.DataFrame(consumer_record)
+                    consumer_record=pd.DataFrame(consumer_record[0])
                     print(consumer_record)
                     # consumer_record['_id'] = consumer_record['_id'].apply(lambda x: ObjectId(x))
                     consumer_record['CreateDate'] = consumer_record['CreateDate'].apply(
@@ -45,7 +45,7 @@ class Main:
 
         consumer_record.rename(columns={'TweetID': 'id', 'text': 'original_text',
                 'CreateDate': 'createdate','Antisemitic': 'antisemietic'},inplace=True)
-        return consumer_record.to_dict(orient='records')[0]
+        return consumer_record.to_dict(orient='records')
 
 
 
