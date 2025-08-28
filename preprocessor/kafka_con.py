@@ -1,6 +1,6 @@
 import os
 
-from utils.KafkaConfigurations import KafkaProducerConfigurations
+from KafkaConfigurations import KafkaProducerConfigurations
 
 
 class KafkaCon:
