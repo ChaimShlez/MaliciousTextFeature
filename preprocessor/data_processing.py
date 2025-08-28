@@ -1,11 +1,9 @@
-import re
+
 import nltk
 import pandas as pd
-from nltk.stem import WordNetLemmatizer
 import re
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from nltk import pos_tag
 from nltk.stem import WordNetLemmatizer
 
 
