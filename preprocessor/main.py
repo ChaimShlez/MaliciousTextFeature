@@ -17,7 +17,7 @@ class Main():
                 for consumer_record in data:
 
                     date_dict = {}
-                    processed_data = data_processing.processing_text(consumer_record.value)
+                    processed_data = data_processing.processing_list_data(consumer_record.value)
                     if consumer_record.topic.endswith("not_antisemitic"):
                         date_dict["preprocessed_tweets_not_antisemitic"] = processed_data
                     else:

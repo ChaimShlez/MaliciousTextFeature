@@ -1,13 +1,13 @@
 import re
 from datetime import datetime
-
 import pandas as pd
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 class Features:
-    def __init__(self,data):
-        self.data=pd.DataFrame(data)
+    def __init__(self, weapons):
+        self.weapons = weapons.split()
+        self.data= None
         nltk.download('vader_lexicon')
         self.analyzer = SentimentIntensityAnalyzer()
 
@@ -22,11 +22,10 @@ class Features:
             return 'negative'
 
 
-    def find_weapons(self,text,weapons):
-
+    def find_weapons(self,text):
         weapons_list=[]
         words = text.split()
-        for weapon in weapons:
+        for weapon in self.weapons:
             if weapon in words:
                 weapons_list.append(weapon)
         return weapons_list
@@ -35,15 +34,17 @@ class Features:
         matches = re.findall(r'\d{4}-\d{2}-\d{2}', text)
         if not matches:
             return None
-
         dates = []
         for match in matches:
+
           dates.append(datetime.strptime(match, '%Y-%m-%d').date())
-        return max(dates)
+        max_date = max(dates)
+        return str(max_date)
 
 
-    def add_features(self,weapons):
-       self.data['Sentiment'] = self.data['clean_text'].apply(self.finding_emotion_text)
-       self.data['weapons_detected'] = self.data['clean_text'].apply(lambda x: self.find_weapons(x,weapons))
-       self.data['relevant_timestamp']=self.data['text'].apply(self.date_extraction)
-
+    def add_features(self, data):
+        self.data = pd.DataFrame(data)
+        self.data['Sentiment'] = self.data['clean_text'].apply(self.finding_emotion_text)
+        self.data['weapons_detected'] = self.data['clean_text'].apply(self.find_weapons)
+        self.data['relevant_timestamp']=self.data['text'].apply(self.date_extraction)
+        return self.data.to_dict(orient='records')
