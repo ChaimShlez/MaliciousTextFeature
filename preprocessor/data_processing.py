@@ -1,9 +1,4 @@
-import nltk
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')  
-nltk.download('wordnet')                     
-nltk.download('omw-1.4')   
+import nltk  
 import pandas as pd
 from nltk.stem import WordNetLemmatizer
 import re
@@ -46,16 +41,27 @@ class DataProcessing:
         return ' '.join( lemmatized_words)
 
 
-    def processing_text(self, data):
+    def processing_list_data(self, data):
         try:
             self.data = pd.DataFrame(data)
             self.data['clean_text'] =  self.data['text'].apply(self.remove_marks)
             self.data['clean_text'] = self.data['clean_text'].apply(self.replace_to_lower)
             self.data['clean_text'] = self.data['clean_text'].apply(self.remove_stop_words)
             self.data['clean_text'] = self.data['clean_text'].apply(self.Lemmatizing_text)
-            return pd.DataFrame.to_dict(self.data)
+            return self.data.to_dict(orient='records')
         except Exception as e:
             print("Error2", str(e))
+    
+    # def processing_data_str(self, data_str):
+    #     try:
+    #         self.data = data_str
+    #         self.data = self.remove_marks()
+    #         self.data = self.replace_to_lower()
+    #         self.data = self.remove_stop_words()
+    #         self.data = self.Lemmatizing_text()
+    #         return self.data
+    #     except Exception as e:
+    #         print("Error2", str(e))
         
 
 
