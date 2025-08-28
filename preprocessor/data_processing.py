@@ -1,18 +1,21 @@
-import re
 import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')  # נכון
+nltk.download('wordnet')                     # להמרה ללמה
+nltk.download('omw-1.4')   
 import pandas as pd
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-from nltk import pos_tag
 from nltk.stem import WordNetLemmatizer
-
+import re
+from nltk.corpus import stopwords 
+from nltk.tokenize import word_tokenize
 
 class DataProcessing:
     def __init__(self,data):
-        self.data=data
-        nltk.download('stopwords')
-        nltk.download('punkt')
-        nltk.download('averaged_perceptron_tagger_eng')
+        self.data = pd.DataFrame(data)
+        # nltk.download('stopwords')
+        # nltk.download('punkt')
+        # nltk.download('averaged_perceptron_tagger_eng')
         self.lemmatizer = WordNetLemmatizer()
 
 
