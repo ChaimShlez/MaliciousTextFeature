@@ -3,7 +3,7 @@ import pandas as pd
 # from bson import ObjectId
 from kafka_con import KafkaCon
 # from datetime import datetime
-from insert_to_data import InsertToData
+from Insert_to_data import InsertToData
 import time
 
 
