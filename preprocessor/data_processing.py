@@ -1,9 +1,12 @@
-import nltk  
+
+import nltk
 import pandas as pd
 from nltk.stem import WordNetLemmatizer
 import re
-from nltk.corpus import stopwords 
+from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+
 
 class DataProcessing:
     def __init__(self):
@@ -51,7 +54,7 @@ class DataProcessing:
             return self.data.to_dict(orient='records')
         except Exception as e:
             print("Error2", str(e))
-    
+
     # def processing_data_str(self, data_str):
     #     try:
     #         self.data = data_str
@@ -62,6 +65,6 @@ class DataProcessing:
     #         return self.data
     #     except Exception as e:
     #         print("Error2", str(e))
-        
+
 
 

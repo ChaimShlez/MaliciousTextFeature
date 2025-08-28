@@ -15,12 +15,12 @@ class KafkaProducerConfigurations:
         )
         return producer
     @staticmethod
-    def consumer_connect(topic_one,topic_two):
+    def consumer_connect(topic_one,topic_two,group_id):
         consumer = KafkaConsumer(
             topic_one,topic_two,
             bootstrap_servers='localhost:9095',
             auto_offset_reset='earliest',
-            group_id="my_consumer_group",
+            group_id=group_id,
             enable_auto_commit=True,
             value_deserializer=lambda v: json.loads(v.decode('utf-8'))
         )

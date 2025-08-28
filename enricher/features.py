@@ -7,7 +7,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 class Features:
     def __init__(self, weapons):
         self.weapons = weapons.split()
-        self.data= None 
+        self.data= None
         nltk.download('vader_lexicon')
         self.analyzer = SentimentIntensityAnalyzer()
 
@@ -36,6 +36,7 @@ class Features:
             return None
         dates = []
         for match in matches:
+
           dates.append(datetime.strptime(match, '%Y-%m-%d').date())
         max_date = max(dates)
         return str(max_date)
