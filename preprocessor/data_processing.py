@@ -1,23 +1,24 @@
-import re
 import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')  
+nltk.download('wordnet')                     
+nltk.download('omw-1.4')   
 import pandas as pd
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-from nltk import pos_tag
 from nltk.stem import WordNetLemmatizer
-
+import re
+from nltk.corpus import stopwords 
+from nltk.tokenize import word_tokenize
 
 class DataProcessing:
-    def __init__(self,data):
-        self.data=data
+    def __init__(self):
+        self.data = None
         nltk.download('stopwords')
         nltk.download('punkt_tab')
         nltk.download('wordnet')
         nltk.download('omw-1.4')
         nltk.download('averaged_perceptron_tagger_eng')
         self.lemmatizer = WordNetLemmatizer()
-
-
 
 
     def remove_marks(self,text):
@@ -45,25 +46,16 @@ class DataProcessing:
         return ' '.join( lemmatized_words)
 
 
-    def processing_text(self):
-        self.data['clean_text'] =  self.data['Text'].apply(self.remove_marks)
-        self.data['clean_text'] = self.data['clean_text'].apply(self.replace_to_lower)
-        self.data['clean_text'] = self.data['clean_text'].apply(self.remove_stop_words)
-        self.data['clean_text'] = self.data['clean_text'].apply(self.Lemmatizing_text)
-
-        return self.data
-
-
-
-
-
-df = pd.DataFrame({
-    "Text": [
-"        Leave 2021 - 05 - 03 grenade 2022 - 0…"
-    ]
-})
+    def processing_text(self, data):
+        try:
+            self.data = pd.DataFrame(data)
+            self.data['clean_text'] =  self.data['text'].apply(self.remove_marks)
+            self.data['clean_text'] = self.data['clean_text'].apply(self.replace_to_lower)
+            self.data['clean_text'] = self.data['clean_text'].apply(self.remove_stop_words)
+            self.data['clean_text'] = self.data['clean_text'].apply(self.Lemmatizing_text)
+            return pd.DataFrame.to_dict(self.data)
+        except Exception as e:
+            print("Error2", str(e))
+        
 
 
-d=DataProcessing(df)
-d.processing_text()
-print(d.data)
